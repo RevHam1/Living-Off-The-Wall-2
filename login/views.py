@@ -1,45 +1,89 @@
+import bcrypt
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from .models import *
+from .models import User, Wall_Message
 
 
 # Root route, to display the Registration/Login page
 def index(request):
     return render(request, "login/index.html")
 
-# Register route, to create a user
+## Register, Login, Logout FUNCTIONALITIES ##
 
 
 def register(request):
-    errors = User.objects.validator(request.POST, "registration")
-
-    if len(errors) > 0:
-        # If the errors dictionary contains anything, loop through each key-value pair and make a flash message
-        for key, value in errors.items():
-            messages.error(request, value)
-        # Redirect the user back to the  reg/login page to fix the errors
-        return redirect("/")
-    else:
-        User.objects.create(first_name=request.POST['reg-fname'], last_name=request.POST['reg-lname'],
-                            email=request.POST['reg-email'], password=request.POST['reg-pword'])
-        thisUser = User.objects.last()
-        request.session['user_id'] = thisUser.id
-        request.session['user_fname'] = thisUser.first_name
-        return redirect("/wall")
-
-# Login route, checks that the email/password combination entered matches a valid user in the database
+    if request.method == "POST":
+        errors = User.objects.create_validator(request.POST)
+        if errors:
+            for value in errors.values():
+                messages.error(request, value)
+            return redirect('/')
+        else:
+            hashed_pw = bcrypt.hashpw(
+                request.POST['password'].encode(), bcrypt.gensalt()).decode()
+            user = User.objects.create(
+                first_name=request.POST['first_name'],
+                last_name=request.POST['last_name'],
+                email=request.POST['email'],
+                birthday=request.POST['birthday'],
+                password=hashed_pw
+            )
+            request.session['user_id'] = user.id
+            return redirect('/success')
+    return redirect('/')
 
 
 def login(request):
-    checkUser = User.objects.filter(
-        email=request.POST['log-email'], password=request.POST['log-pword'])
-    if (len(checkUser) < 1):
-        # If there is no match, we return to the reg/login page with an error message, as stated below
-        messages.error(
-            request, "The email and password combination entered do not match a record in our database")
-        return redirect("/")
-    else:
-        request.session['user_id'] = checkUser[0].id
-        request.session['user_fname'] = checkUser[0].first_name
-        return redirect("/wall")
+    if request.method == "POST":
+        user = User.objects.filter(email=request.POST['email'])
+        if user:
+            user = user[0]
+            if bcrypt.checkpw(request.POST['password'].encode(), user.password.encode()):
+                request.session['user_id'] = user.id
+                return redirect('/success')
+        messages.error(request, "Email or password is incorrect")
+    return redirect('/')
+
+
+def success(request):
+    if 'user_id' not in request.session:
+        messages.error(request, "You need to register or login!")
+        return redirect('/')
+
+    context = {
+        'user': User.objects.get(id=request.session['user_id']),
+        # 'all_messages': Wall_Message.objects.all(),
+    }
+    return render(request, "login/success.html", context)
+
+
+def logout(request):
+    request.session.flush()
+    # request.session.clear()
+    return redirect('/')
+
+
+## Wall FUNCTIONALITY ##
+# CREATE Post, Comment-Integrate the ability to Post a message or comment on someone else’s message
+def create_mess(request):
+    if request.method == 'POST':
+        error = Wall_Message.objects.mess_validator(request.POST)
+        if error:
+            messages.error(request, error)
+            return redirect('/success')
+        new_mess = Wall_Message.objects.create(
+            content=request.POST['content'],
+            poster=User.objects.get(id=request.session['user_id'])
+        )
+        print(new_mess)
+        return redirect('/success')
+    return redirect('/')
+
+
+# READ POST
+def profile(request, user_id):
+    context = {
+        'user': User.objects.get(id=user_id)
+    }
+    return render(request, "profile.html", context)

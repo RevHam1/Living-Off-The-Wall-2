@@ -56,6 +56,10 @@ h1 {
   text-shadow: 2px 2px black;
 }
 
+h3 {
+  color: white;
+}
+
 /* Sections inside the container */
 .section {
   width: 450px;
@@ -121,6 +125,44 @@ button:hover {
   background-color: green;
   color: white; /* Ensure readability */
   padding: 10px;
+}
+
+/* nav bar */
+.navbar {
+  background-color: black; /* Gray background */
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Push items apart */
+  color: white; /* Text color */
+  font-size: 18px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.left {
+  font-weight: bold; /* Styles first item */
+}
+
+.right {
+  display: flex;
+  gap: 20px; /* Space between "Hello John" & Logout button */
+  align-items: center;
+}
+
+button {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: darkgray;
 }
 
 /* Responsive Design */

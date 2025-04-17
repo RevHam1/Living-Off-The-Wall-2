@@ -40,3 +40,28 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = UserManager()
+
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
+
+
+class Wall_Messa_Mang(models.Manager):
+    def mess_validator(self, postData):
+        errors = ""
+        if len(postData['content']) < 1:
+            errors = "Post a message must be at least two characters"
+        return errors
+
+
+class Wall_Message(models.Model):
+    content = models.CharField(max_length=255)
+    poster = models.ForeignKey(
+        User, related_name='messages', on_delete=models.CASCADE)
+    user_likes = models.ManyToManyField(User, related_name='liked_posts')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = Wall_Messa_Mang()
+
+    def __str__(self):
+        return self.content[:15] + ("..." if len(self.content) > 15 else "")
