@@ -5,25 +5,26 @@
   box-sizing: border-box; /* Prevent unwanted spacing issues */
 }
 
-/* Make the container cover the entire viewport */
+/* Allow scrolling to access content beyond viewport */
 html,
 body {
   width: 100vw;
-  height: 100vh;
-  overflow: hidden; /* Prevent scrolling if not needed */
+  min-height: 100vh; /* Ensure flexibility */
+  overflow-y: auto; /* Enables scrolling */
+  color: white;
 }
 
-/* Updated container to fully cover viewport */
+/* Updated container with flexible height */
 #container {
-  /* background-color: lightblue; */
-  width: 100vw; /* Full viewport width */
-  height: 100vh; /* Full viewport height */
+  position: relative; /* Allows better responsiveness */
+  width: 100%;
+  min-height: 100vh; /* Prevents cut-off content */
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  justify-content: center; /* Center content vertically */
-  align-items: center; /* Center content horizontally */
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 
-  /* background-color: #a52a2a; Brick base color */
+  /* Background styling */
   background-color: #b22222; /* Firebrick red */
   background-image: linear-gradient(
       90deg,
@@ -32,61 +33,53 @@ body {
     ),
     linear-gradient(180deg, rgba(255, 255, 255, 0.3) 5%, transparent 5%);
   background-size: 80px 40px;
-  background-position: 0 0, 40px 20px; /* Shifts alternate rows */
+  background-position: 0 0, 40px 20px;
 }
 
+/* Title styling */
 .title {
   color: white;
   font-size: 50px;
-  margin-bottom: 30px;
   text-shadow: 2px 2px black;
   letter-spacing: 3px;
+  text-align: center;
 }
 
-/* .s1 {
-  gap: 2em;
-  row-gap: 5em;
-} */
-
-/* Heading adjustments */
-h1 {
-  padding-top: 20px;
-  font-size: 2.5rem;
-  color: white;
-  text-shadow: 2px 2px black;
-}
-
-h3 {
-  color: white;
+.title-logout {
+  margin-bottom: 40px;
+  font-size: 40px;
 }
 
 /* Sections inside the container */
 .section {
-  width: 450px;
-  display: inline-block;
-  vertical-align: top;
+  width: 100%;
+  max-width: 450px; /* Limits width for readability */
+  margin: 20px auto; /* Centers sections */
+  display: block; /* Avoids inline issues */
 }
 
-/* Form elements */
-label {
-  margin-right: 30px;
-  width: 100px;
-  color: white;
-  font-size: 1.15rem;
-}
-
-input {
-  width: 300px;
-}
-
-/* Button styling */
-button {
+/* Button improvements */
+.button-msg {
   background-color: blue;
   color: white;
-  padding: 10px; /* Slightly larger padding */
+  padding: 10px;
   border-radius: 5px;
   margin-top: 10px;
-  cursor: pointer; /* Add hover effect */
+  margin-bottom: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button-com {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: none;
+  cursor: pointer;
   transition: background 0.3s ease;
 }
 
@@ -94,86 +87,23 @@ button:hover {
   background-color: darkblue;
 }
 
-/* Success Message Inputs */
-.message input {
-  width: 700px;
-  height: 75px;
+.indent {
+  margin-left: 30px;
 }
 
-.message button {
-  background-color: blue;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0 10px auto;
-  display: block;
-}
-
-/* Messages */
-.messages {
-  color: red;
-}
-
-/* Logout Button */
-.logout {
-  display: block;
-  margin: 0 auto;
-}
-
-/* Comment Styling */
-.comment {
-  background-color: green;
-  color: white; /* Ensure readability */
-  padding: 10px;
-}
-
-/* nav bar */
-.navbar {
-  background-color: black; /* Gray background */
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Push items apart */
-  color: white; /* Text color */
-  font-size: 18px;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
-.left {
-  font-weight: bold; /* Styles first item */
-}
-
-.right {
-  display: flex;
-  gap: 20px; /* Space between "Hello John" & Logout button */
-  align-items: center;
-}
-
-button {
-  background-color: blue;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-button:hover {
-  background-color: darkgray;
-}
-
-/* Responsive Design */
+/* Responsive adjustments */
 @media (max-width: 768px) {
   #container {
-    flex-direction: column;
     padding: 20px;
   }
 
   .section {
-    width: 100%;
+    width: 90%; /* Ensures sections fit smaller screens */
     text-align: center;
+  }
+
+  button {
+    width: 100%; /* Improves button responsiveness */
+    max-width: 200px;
   }
 }
