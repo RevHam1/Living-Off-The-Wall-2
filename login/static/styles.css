@@ -12,6 +12,7 @@ body {
   min-height: 100vh; /* Ensure flexibility */
   overflow-y: auto; /* Enables scrolling */
   color: white;
+  text-shadow: 2px 2px black;
 }
 
 /* Updated container with flexible height */
@@ -81,6 +82,20 @@ body {
   border: none;
   cursor: pointer;
   transition: background 0.3s ease;
+}
+
+.button-like {
+  background-color: yellow;
+  color: black;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 0px;
+  margin-bottom: -25px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100px;
 }
 
 button:hover {

@@ -36,7 +36,7 @@
           <h3>Post a Message</h3>
           <form action="/create_message" method="POST">
             {% csrf_token %}
-            <textarea name="content" cols="157" rows="3"></textarea>
+            <textarea name="content" cols="157" rows="4"></textarea>
             <br />
             <button class="button-msg">Post a message</button>
           </form>
@@ -50,7 +50,24 @@
           Posted By: {{message.poster}} - {{message.created_at|date:"F j, Y"}}
         </h3>
 
+        {% if user in message.user_likes.all %}
+        <form action="{% url 'unlike_message' message.id %}" method="POST">
+          {% csrf_token %}
+          <button class="button-like" type="submit">Unlike</button>
+        </form>
+        <br />
+        {% else %}
+        <form action="{% url 'like_message' message.id %}" method="POST">
+          {% csrf_token %}
+          <button class="button-like" type="submit">Like</button>
+        </form>
+        <br />
+        {% endif %}
+
         <h3 class="message container indent">{{ message.content }}</h3>
+        <h3 class="message container">
+          Liked by {{ message.user_likes.count }} users
+        </h3>
 
         {% if message.poster.id == request.session.user_id %}
         <h3 class="message container indent">
