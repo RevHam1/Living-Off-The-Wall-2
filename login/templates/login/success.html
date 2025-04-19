@@ -51,8 +51,15 @@
         </h3>
 
         <h3 class="message container indent">{{ message.content }}</h3>
+
+        {% if message.poster.id == request.session.user_id %}
+        <h3 class="message container indent">
+          <a href="/delete/{{message.id}}">Delete your message</a>
+        </h3>
+        {% endif %}
+
         <br />
-        <h3>Make a Commemt</h3>
+        <h3>Add a Commemt to Post Above</h3>
 
         <form action="/create_comment" method="POST">
           {% csrf_token %}
@@ -63,13 +70,18 @@
 
         {% for comment in message.post_comments.all %}
         <h3>
-          Comment: {{comment.poster.first_name}} {{comment.poster.last_name}}
+          Comment: {{comment.poster.first_name}} {{comment.poster.last_name}} -
           {{comment.created_at|date:"F j, Y"}}
         </h3>
+        <h3 class="message container indent">{{ comment.content }}</h3>
 
-        <h3 class="message container indent">{{comment.content}}</h3>
+        {% if comment.poster.id == request.session.user_id %}
+        <h3 class="message container indent">
+          <a href="/comm_delete/{{ comment.id }}">Delete your comment</a>
+        </h3>
+        {% endif %}
+
         <br />
-        <!-- <p>{{comment.created_at}}</p> -->
         {% endfor %}
       </div>
       {% endfor %}

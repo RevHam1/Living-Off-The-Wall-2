@@ -122,12 +122,12 @@ def unlike_message(request, message_id):
     return redirect('/success')
 
 
-# # DELETE MESSAGE-Implement delete functionality allowing users to delete only their own messages
-# def delete_mess(request, mess_id):
-#     Wall_Message.objects.get(id=mess_id).delete()
-#     return redirect('/success')
+# DELETE MESSAGE-Implement delete functionality allowing users to delete only their own messages
+def delete_mess(request, mess_id):
+    Wall_Message.objects.get(id=mess_id).delete()
+    return redirect('/success')
 
 
-# def delete_comm(request, comm_id):
-#     Comment.objects.get(id=comm_id).delete()
-#     return redirect('/success')
+def delete_comm(request, comm_id):
+    Comment.objects.get(id=comm_id).delete()
+    return redirect('/success')
