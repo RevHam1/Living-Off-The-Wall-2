@@ -17,12 +17,14 @@
   <body>
     <div id="container">
       <div class="message">
-        <h1 class="title">
-          LIVING OFF THE WALL<br />Hello {{ user.first_name }}
-        </h1>
-        <h1 class="title title-logout">
+        <h1 class="title">LIVING OFF THE WALL</h1>
+        <h1 class="title">Hello {{ user.first_name }}</h1>
+
+        <h2 class="title title-logout">
+          <a href="{% url 'user_profile' user.id %}">View Profile</a> -
           <a href="/logout">(Logout {{ user.first_name }})</a>
-        </h1>
+        </h2>
+        <!-- <h1>Hello {{ user.first_name }}</h1> -->
 
         {% if messages %}
         <ul class="messages">
@@ -65,12 +67,12 @@
         {% endif %}
 
         <h3 class="message container indent">{{ message.content }}</h3>
-        <h3 class="message container">
+        <h3 class="message container" style="font-style: italic">
           Liked by {{ message.user_likes.count }} users
         </h3>
 
         {% if message.poster.id == request.session.user_id %}
-        <h3 class="message container indent">
+        <h3 class="message container">
           <a href="/delete/{{message.id}}">Delete your message</a>
         </h3>
         {% endif %}

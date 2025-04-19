@@ -82,11 +82,20 @@ def create_mess(request):
 
 
 # READ POST
+# def profile(request, user_id):
+#     context = {
+#         'user': User.objects.get(id=user_id)
+#     }
+#     return render(request, "profile.html", context)
+
+# def profile(request, user_id):
+#     user = User.objects.get(id=user_id)
+#     return render(request, "profile.html", {"user": user})
+
 def profile(request, user_id):
-    context = {
-        'user': User.objects.get(id=user_id)
-    }
-    return render(request, "profile.html", context)
+    user = User.objects.get(id=user_id)
+    return render(request, "login/profile.html", {"user": user})  # ✅ Ensure correct path
+
 
 
 def create_comm(request):

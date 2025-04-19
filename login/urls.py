@@ -14,8 +14,9 @@ urlpatterns = [
 
     path('create_comment', views.create_comm),
 
-    path('user/<int:user_id>', views.profile),
-    # # path('like/<int:id>', views.add_like),
+    # path('user/<int:user_id>', views.profile),
+    path('user/<int:user_id>/', views.profile, name='user_profile'),
+    # path('like/<int:id>', views.add_like),
     path('delete/<int:mess_id>', views.delete_mess),
     path('comm_delete/<int:comm_id>', views.delete_comm),
 
