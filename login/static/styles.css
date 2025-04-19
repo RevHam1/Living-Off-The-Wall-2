@@ -88,7 +88,26 @@ button:hover {
 }
 
 .indent {
-  margin-left: 30px;
+  margin-left: 50px;
+}
+
+.jagged-hr {
+  border: none;
+  height: 10px;
+  background: linear-gradient(
+    90deg,
+    black 0%,
+    transparent 10%,
+    black 20%,
+    transparent 30%,
+    black 40%,
+    transparent 50%,
+    black 60%,
+    transparent 70%,
+    black 80%,
+    transparent 90%,
+    black 100%
+  );
 }
 
 /* Responsive adjustments */

@@ -14,28 +14,16 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}" />
     <title>Message Wall</title>
   </head>
-  <!-- <nav class="navbar">
-    <div class="left">LIVING OFF THE WALL</div>
-    <div class="right">
-      <span>Hello {{ user.first_name }}</span>
-      <a class="logout" href="/logout">
-        <button>Logout</button>
-      </a>
-    </div>
-  </nav> -->
-
   <body>
     <div id="container">
       <div class="message">
-        <h1 class="title">LIVING OFF THE WALL<br>Hello {{ user.first_name }}</h1>
-        <!-- <h1 class="title logout" href="/logout">Logout {{ user.first_name }}</h1>
-        <a class="logout" href="/logout">
-          <button>Logout</button>
-        </a> -->
-        <!-- <h1 class="title">Hello {{ user.first_name }}</h1> -->
+        <h1 class="title">
+          LIVING OFF THE WALL<br />Hello {{ user.first_name }}
+        </h1>
+        <h1 class="title title-logout">
+          <a href="/logout">(Logout {{ user.first_name }})</a>
+        </h1>
 
-        <h1 class="title title-logout " href="/logout"><a  href="/logout">(Logout {{ user.first_name }})</a></h1>
-        
         {% if messages %}
         <ul class="messages">
           {% for message in messages %}
@@ -49,80 +37,41 @@
           <form action="/create_message" method="POST">
             {% csrf_token %}
             <textarea name="content" cols="157" rows="3"></textarea>
+            <br />
             <button class="button-msg">Post a message</button>
           </form>
         </div>
       </div>
 
       {% for message in all_messages %}
-      <div class="message container post2 ">
-        <h3 style="text-decoration: underline;">
-          Posted By: {{ message.poster.first_name }} {{ message.poster.last_name }}</a>
-          {{ message.created_at|date:"F j, Y" }}
+      <div class="message container post2">
+        <hr class="jagged-hr" />
+        <h3 style="text-decoration: underline">
+          Posted By: {{message.poster}} - {{message.created_at|date:"F j, Y"}}
         </h3>
 
-        <h3 class="indent">  
-        <p class="post2-p">{{ message.content }}</p>
-          
-          <br />
+        <h3 class="message container indent">{{ message.content }}</h3>
+        <br />
+        <h3>Make a Commemt</h3>
 
-          <!-- <a href="/like/{{post.id}}">Like Post</a>
-          <p>{{ post.user_likes.count }}</p>  -->
-
-          <!-- <ul>
-            {% for message in all_messages %}
-            <li>
-              <p>{{ message.content }}</p>
-              <p>Liked by {{ message.user_likes.count }} users</p>
-              {% if user in message.user_likes.all %}
-              <form
-                action="{% url 'unlike_message' message.id %}"
-                method="POST"
-              >
-                {% csrf_token %}
-                <button type="submit">Unlike</button>
-              </form>
-              <br />
-              {% else %}
-              <form action="{% url 'like_message' message.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit">Like</button>
-              </form>
-              <br />
-              {% endif %}
-            </li>
-            {% endfor %}
-          </ul> -->
-
-          <!-- {% if message.poster.id == request.session.user_id %}
-          <a href="/delete/{{message.id}}">Delete Message</a>
-          {% endif %} -->
-        </h3>
-        
-
-        {% for comment in message.post_comments.all %}
-        <p>
-          Comment By: {{comment.poster.first_name}} {{comment.poster.last_name}}
-        </p>
-        {% if comment.poster.id == request.session.user_id %}
-        <a href="/comm_delete/{{comment.id}}">Delete Comment</a>
-        {% endif %}
-        <p>{{comment.content}}</p>
-        <p>{{comment.created_at}}</p>
-        {% endfor %}
-        <div class= post2">
-          <h3>Make a Comment: </h3>
-        </div>
-        <div>
         <form action="/create_comment" method="POST">
           {% csrf_token %}
           <textarea name="content" cols="145" rows="2"></textarea>
-          <input type="hidden" name="message" value="{{message.id}}" />
+          <input type="hidden" name="message" value="{{ message.id }}" />
           <button class="button-com">Post a comment</button>
         </form>
+
+        {% for comment in message.post_comments.all %}
+        <h3>
+          Comment: {{comment.poster.first_name}} {{comment.poster.last_name}}
+          {{comment.created_at|date:"F j, Y"}}
+        </h3>
+
+        <h3 class="message container indent">{{comment.content}}</h3>
+        <br />
+        <!-- <p>{{comment.created_at}}</p> -->
+        {% endfor %}
       </div>
-      </div>
-      <br />
       {% endfor %}
     </div>
   </body>

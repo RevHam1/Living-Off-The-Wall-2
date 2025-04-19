@@ -11,7 +11,9 @@ urlpatterns = [
 
     ## Wall FUNCTIONALITY ##
     path('create_message', views.create_mess),
-    # path('create_comment', views.create_comm),
+
+    path('create_comment', views.create_comm),
+
     path('user/<int:user_id>', views.profile),
     # # path('like/<int:id>', views.add_like),
     # path('delete/<int:mess_id>', views.delete_mess),

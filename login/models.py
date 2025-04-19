@@ -65,3 +65,16 @@ class Wall_Message(models.Model):
 
     def __str__(self):
         return self.content[:15] + ("..." if len(self.content) > 15 else "")
+
+
+class Comment(models.Model):
+    content = models.CharField(max_length=140)
+    poster = models.ForeignKey(
+        User, related_name='user_comments', on_delete=models.CASCADE)
+    wall_message = models.ForeignKey(
+        Wall_Message, related_name="post_comments", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.content[:15] + ("..." if len(self.content) > 15 else "")

@@ -2,7 +2,7 @@ import bcrypt
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from .models import User, Wall_Message
+from .models import Comment, User, Wall_Message
 
 
 # Root route, to display the Registration/Login page
@@ -87,6 +87,17 @@ def profile(request, user_id):
         'user': User.objects.get(id=user_id)
     }
     return render(request, "profile.html", context)
+
+
+def create_comm(request):
+    if request.method == 'POST':
+        Comment.objects.create(
+            content=request.POST['content'],
+            poster=User.objects.get(id=request.session['user_id']),
+            wall_message=Wall_Message.objects.get(id=request.POST['message']),
+        )
+        return redirect('/success')
+    return redirect('/')
 
 
 def like_message(request, message_id):
