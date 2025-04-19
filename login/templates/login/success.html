@@ -18,13 +18,17 @@
     <div id="container">
       <div class="message">
         <h1 class="title">LIVING OFF THE WALL</h1>
-        <h1 class="title">Hello {{ user.first_name }}</h1>
+        <h1 class="title-2">Hello {{ user.first_name }}</h1>
 
-        <h2 class="title title-logout">
-          <a href="{% url 'user_profile' user.id %}">View Profile</a> -
+        <h2 class="title-3">
+          <a href="{% url 'user_profile' user.id %}"
+            >Read All Post By {{user.first_name}}</a
+          >
+          -
           <a href="/logout">(Logout {{ user.first_name }})</a>
         </h2>
-        <!-- <h1>Hello {{ user.first_name }}</h1> -->
+        <br />
+        <hr class="jagged-hr" />
 
         {% if messages %}
         <ul class="messages">
@@ -35,7 +39,7 @@
         {% endif %}
 
         <div class="post">
-          <h3>Post a Message</h3>
+          <h3>Create a Post Message</h3>
           <form action="/create_message" method="POST">
             {% csrf_token %}
             <textarea name="content" cols="157" rows="4"></textarea>
@@ -48,6 +52,19 @@
       {% for message in all_messages %}
       <div class="message container post2">
         <hr class="jagged-hr" />
+        <!-- <p
+          class="jagged-hr"
+          style="
+            text-align: center;
+            margin: 25px 0px;
+            font-size: 24px;
+            color: black;
+            letter-spacing: 5px;
+          "
+        >
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        </p> -->
+
         <h3 style="text-decoration: underline">
           Posted By: {{message.poster}} - {{message.created_at|date:"F j, Y"}}
         </h3>

@@ -18,7 +18,9 @@
     <div id="container">
       <h1 class="title">LIVING OFF THE WALL</h1>
 
-      <h1>You Are Viewing All Post By {{user.first_name}}</h1>
+      <h1>
+        You Are Viewing All Post By {{user.first_name}} {{user.last_name}}
+      </h1>
       <h2>
         <a href="/success">Back to The Wall</a>-
         <a href="/logout">(Logout {{ user.first_name }})</a>

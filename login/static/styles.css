@@ -13,17 +13,6 @@ body {
   overflow-y: auto; /* Enables scrolling */
   color: white;
   text-shadow: 2px 2px black;
-}
-
-/* Updated container with flexible height */
-#container {
-  position: relative; /* Allows better responsiveness */
-  width: 100%;
-  min-height: 100vh; /* Prevents cut-off content */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
 
   /* Background styling */
   background-color: #b22222; /* Firebrick red */
@@ -37,6 +26,67 @@ body {
   background-position: 0 0, 40px 20px;
 }
 
+/* Updated container with flexible height */
+
+/* Section for index.html */
+#container-2 {
+  display: flex; /* Enables side-by-side layout */
+  gap: 10px; /* Adds spacing between sections */
+}
+
+/* Sections inside the container */
+.section-1 {
+  margin: 20px auto;
+  margin-left: 50px;
+  flex: 1; /* Allows sections to take equal space */
+  max-width: 48%; /* Ensures both fit side by side */
+}
+
+/* Form elements */
+label {
+  width: 100px;
+  color: white;
+  font-size: 1.15rem;
+  margin-left: 50px;
+  text-align: lefy; /* Aligns text */
+}
+
+input {
+  width: 300px;
+  margin: 0; /* Removes unwanted margin */
+  display: inline-block;
+}
+
+/* Sections inside the container */
+.section-1 {
+  flex: 1; /* Allows sections to take equal space */
+  max-width: 48%; /* Ensures both fit side by side */
+}
+
+.button-user {
+  background-color: blue;
+  color: white;
+  padding: 10px; /* Slightly larger padding */
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer; /* Add hover effect */
+  margin-bottom: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* Section for profiles.html, succes.html */
+#container {
+  position: relative; /* Allows better responsiveness */
+  width: 100%;
+  min-height: 100vh; /* Prevents cut-off content */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
 /* Title styling */
 .title {
   color: white;
@@ -46,55 +96,50 @@ body {
   text-align: center;
 }
 
+.title-2 {
+  color: white;
+  font-size: 40px;
+  text-shadow: 2px 2px black;
+  letter-spacing: normal;
+  text-align: center;
+}
+
+.title-3 {
+  font-size: 30px;
+  letter-spacing: normal;
+  text-align: center;
+}
+
 .title-logout {
   margin-bottom: 40px;
   font-size: 40px;
 }
 
-/* Sections inside the container */
-.section {
-  width: 100%;
-  max-width: 450px; /* Limits width for readability */
-  margin: 20px auto; /* Centers sections */
-  display: block; /* Avoids inline issues */
+/* Button improvements */
+.button-msg,
+.button-com,
+.button-like {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-/* Button improvements */
 .button-msg {
   background-color: blue;
   color: white;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
 }
-
 .button-com {
   background-color: green;
   color: white;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
 }
-
 .button-like {
   background-color: yellow;
   color: black;
   font-weight: bold;
-  padding: 5px;
-  border-radius: 5px;
-  margin-top: 0px;
-  margin-bottom: -25px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
   width: 100px;
 }
 
@@ -102,10 +147,12 @@ button:hover {
   background-color: darkblue;
 }
 
+/* Indentation */
 .indent {
   margin-left: 50px;
 }
 
+/* Jagged horizontal line */
 .jagged-hr {
   border: none;
   height: 10px;
