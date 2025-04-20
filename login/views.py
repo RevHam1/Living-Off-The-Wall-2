@@ -12,6 +12,27 @@ def index(request):
 ## Register, Login, Logout FUNCTIONALITIES ##
 
 
+# def register(request):
+#     if request.method == "POST":
+#         errors = User.objects.create_validator(request.POST)
+#         if errors:
+#             for value in errors.values():
+#                 messages.error(request, value)
+#             return redirect('/')
+#         else:
+#             hashed_pw = bcrypt.hashpw(
+#                 request.POST['password'].encode(), bcrypt.gensalt()).decode()
+#             user = User.objects.create(
+#                 first_name=request.POST['first_name'],
+#                 last_name=request.POST['last_name'],
+#                 email=request.POST['email'],
+#                 birthday=request.POST['birthday'],
+#                 password=hashed_pw
+#             )
+#             request.session['user_id'] = user.id
+#             return redirect('/success')
+#     return redirect('/')
+
 def register(request):
     if request.method == "POST":
         errors = User.objects.create_validator(request.POST)
@@ -30,7 +51,7 @@ def register(request):
                 password=hashed_pw
             )
             request.session['user_id'] = user.id
-            return redirect('/success')
+            return redirect('/wall')  # ✅ Updated redirect
     return redirect('/')
 
 
@@ -41,12 +62,12 @@ def login(request):
             user = user[0]
             if bcrypt.checkpw(request.POST['password'].encode(), user.password.encode()):
                 request.session['user_id'] = user.id
-                return redirect('/success')
+                return redirect('/wall')  # ✅ Updated redirect
         messages.error(request, "Email or password is incorrect")
     return redirect('/')
 
 
-def success(request):
+def wall(request):
     if 'user_id' not in request.session:
         messages.error(request, "You need to register or login!")
         return redirect('/')
@@ -55,7 +76,31 @@ def success(request):
         'user': User.objects.get(id=request.session['user_id']),
         'all_messages': Wall_Message.objects.order_by('-created_at'),
     }
-    return render(request, "login/success.html", context)
+    # ✅ Update template reference
+    return render(request, "login/wall.html", context)
+
+# def login(request):
+#     if request.method == "POST":
+#         user = User.objects.filter(email=request.POST['email'])
+#         if user:
+#             user = user[0]
+#             if bcrypt.checkpw(request.POST['password'].encode(), user.password.encode()):
+#                 request.session['user_id'] = user.id
+#                 return redirect('/success')
+#         messages.error(request, "Email or password is incorrect")
+#     return redirect('/')
+
+
+# def success(request):
+#     if 'user_id' not in request.session:
+#         messages.error(request, "You need to register or login!")
+#         return redirect('/')
+
+#     context = {
+#         'user': User.objects.get(id=request.session['user_id']),
+#         'all_messages': Wall_Message.objects.order_by('-created_at'),
+#     }
+#     return render(request, "login/success.html", context)
 
 
 def logout(request):
@@ -94,8 +139,8 @@ def create_mess(request):
 
 def profile(request, user_id):
     user = User.objects.get(id=user_id)
-    return render(request, "login/profile.html", {"user": user})  # ✅ Ensure correct path
-
+    # ✅ Ensure correct path
+    return render(request, "login/profile.html", {"user": user})
 
 
 def create_comm(request):

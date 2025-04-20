@@ -172,6 +172,10 @@ button:hover {
   );
 }
 
+.messages {
+  color: white;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   #container {

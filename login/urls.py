@@ -6,7 +6,8 @@ urlpatterns = [
     path('', views.index),
     path('register', views.register),
     path('login', views.login),
-    path('success', views.success),
+    # path('success', views.success),
+    path('wall/', views.wall, name='wall'),  # ✅ Updated route
     path('logout', views.logout),
 
     ## Wall FUNCTIONALITY ##
