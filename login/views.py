@@ -1,6 +1,8 @@
+from mailbox import Message
+
 import bcrypt
 from django.contrib import messages
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Comment, User, Wall_Message
 
@@ -116,13 +118,13 @@ def create_mess(request):
         error = Wall_Message.objects.mess_validator(request.POST)
         if error:
             messages.error(request, error)
-            return redirect('/success')
+            return redirect('/wall')
         new_mess = Wall_Message.objects.create(
             content=request.POST['content'],
             poster=User.objects.get(id=request.session['user_id'])
         )
         print(new_mess)
-        return redirect('/success')
+        return redirect('/wall')
     return redirect('/')
 
 
@@ -150,7 +152,7 @@ def create_comm(request):
             poster=User.objects.get(id=request.session['user_id']),
             wall_message=Wall_Message.objects.get(id=request.POST['message']),
         )
-        return redirect('/success')
+        return redirect('/wall')
     return redirect('/')
 
 
@@ -162,7 +164,7 @@ def like_message(request, message_id):
     user = User.objects.get(id=request.session['user_id'])
     message = Wall_Message.objects.get(id=message_id)
     message.user_likes.add(user)
-    return redirect('/success')
+    return redirect('/wall')
 
 
 def unlike_message(request, message_id):
@@ -173,15 +175,56 @@ def unlike_message(request, message_id):
     user = User.objects.get(id=request.session['user_id'])
     message = Wall_Message.objects.get(id=message_id)
     message.user_likes.remove(user)
-    return redirect('/success')
+    return redirect('/wall')
 
 
 # DELETE MESSAGE-Implement delete functionality allowing users to delete only their own messages
 def delete_mess(request, mess_id):
     Wall_Message.objects.get(id=mess_id).delete()
-    return redirect('/success')
+    return redirect('/wall')
 
 
 def delete_comm(request, comm_id):
     Comment.objects.get(id=comm_id).delete()
-    return redirect('/success')
+    return redirect('/wall')
+
+
+def delete_mess_confirm(request, mess_id):
+    message = get_object_or_404(Message, id=mess_id)
+    if request.method == "POST":
+        message.delete()
+        return redirect("wall")
+    return render(request, "login/delete_confirm.html", {
+        "message": message,
+        "user": request.user
+    })
+
+
+# def delete_mess_confirm(request, mess_id):
+#     message = Wall_Message.objects.get(id=mess_id)
+
+#     if request.method == "POST":
+#         message.delete()
+#         return redirect('/wall')
+
+#     return render(request, "login/delete_confirm.html", {"message": message})
+
+
+# def delete_comm_confirm(request, comm_id):
+#     comment = Comment.objects.get(id=comm_id)
+
+#     if request.method == "POST":
+#         comment.delete()
+#         return redirect('/wall')
+
+#     return render(request, "login/delete_confirm.html", {"comment": comment, "user": request.user})
+
+def delete_comm_confirm(request, comm_id):
+    comment = get_object_or_404(Comment, id=comm_id)
+    if request.method == "POST":
+        comment.delete()
+        return redirect("wall")
+    return render(request, "login/delete_confirm.html", {
+        "comment": comment,
+        "user": request.user
+    })

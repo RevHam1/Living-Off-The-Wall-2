@@ -48,7 +48,7 @@ label {
   color: white;
   font-size: 1.15rem;
   margin-left: 50px;
-  text-align: lefy; /* Aligns text */
+  text-align: left; /* ✅ Fixed typo */
 }
 
 input {
@@ -66,18 +66,16 @@ input {
 .button-user {
   background-color: blue;
   color: white;
-  padding: 10px; /* Slightly larger padding */
-  padding: 10px;
+  padding: 10px; /* ✅ Removed duplicate padding */
   border-radius: 5px;
   margin-top: 10px;
   cursor: pointer; /* Add hover effect */
   margin-bottom: 20px;
   border: none;
-  cursor: pointer;
   transition: background 0.3s ease;
 }
 
-/* Section for profiles.html, succes.html */
+/* Section for profiles.html, success.html */
 #container {
   position: relative; /* Allows better responsiveness */
   width: 100%;
@@ -87,6 +85,7 @@ input {
   align-items: center;
   justify-content: flex-start;
 }
+
 /* Title styling */
 .title {
   color: white;
@@ -141,6 +140,34 @@ input {
   color: black;
   font-weight: bold;
   width: 100px;
+}
+
+.button-del {
+  background-color: red !important;
+  color: white;
+  height: 40px;
+  width: 120px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 50px;
+  border-radius: 5px;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+.button-cancel {
+  border-radius: 5px;
+  width: 120px;
+  font-weight: bold;
+  font-size: 16px;
+  text-decoration: none; /* ✅ Ensures links inside are not underlined */
+  color: black !important;
+  padding: 9px;
+}
+
+.button-cancel a {
+  text-decoration: none; /* ✅ Corrected syntax */
+  color: inherit; /* Uses default text color */
 }
 
 button:hover {

@@ -17,9 +17,18 @@ urlpatterns = [
 
     # path('user/<int:user_id>', views.profile),
     path('user/<int:user_id>/', views.profile, name='user_profile'),
+
+
+
     # path('like/<int:id>', views.add_like),
     path('delete/<int:mess_id>', views.delete_mess),
     path('comm_delete/<int:comm_id>', views.delete_comm),
+
+    path("delete_mess_confirm/<int:mess_id>/",
+         views.delete_mess_confirm, name="delete_mess_confirm"),
+    
+    path("delete_comm_confirm/<int:comm_id>/", views.delete_comm_confirm, name="delete_comm_confirm"),
+
 
     # Likes and unlikes
     path('like/<int:message_id>/', views.like_message, name='like_message'),

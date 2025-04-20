@@ -19,10 +19,10 @@
       <h1 class="title">LIVING OFF THE WALL</h1>
 
       <h1>
-        You Are Viewing All Post By {{user.first_name}} {{user.last_name}}
+        You Are Viewing All Posts By {{ user.first_name }} {{ user.last_name }}
       </h1>
       <h2>
-        <a href="/wall">Back to The Wall</a>-
+        <a href="/wall">Back to The Wall</a> -
         <a href="/logout">(Logout {{ user.first_name }})</a>
       </h2>
       <br />
@@ -30,11 +30,15 @@
       {% for post in user.messages.all %}
       <div class="message container post2">
         <hr class="jagged-hr" />
-        <h3 class="message">{{post.created_at|date:"F j, Y"}}</h3>
-        <h3 class="message container indent">{{post.content}}</h3>
+        <h3 class="message">{{ post.created_at|date:"F j, Y" }}</h3>
+        <h3 class="message container indent">{{ post.content }}</h3>
       </div>
+
+      <!-- Corrected delete link -->
       <h3 class="message container">
-        <a href="/delete/{{message.id}}">Delete your message</a>
+        <a href="{% url 'delete_mess_confirm' post.id %}"
+          >Delete this message</a
+        >
       </h3>
       {% endfor %}
     </div>

@@ -21,10 +21,11 @@
         <h1 class="title-2">Hello {{ user.first_name }}</h1>
 
         <h2 class="title-3">
+          {% if user.id %}
           <a href="{% url 'user_profile' user.id %}"
-            >Read All Post By {{user.first_name}}</a
+            >Read All Posts By {{ user.first_name }}</a
           >
-          -
+          {% endif %} -
           <a href="/logout">(Logout {{ user.first_name }})</a>
         </h2>
         <br />
@@ -53,18 +54,6 @@
       <div class="message container post2">
         <hr class="jagged-hr" />
 
-        <!-- <p
-          style="
-            text-align: center;
-            font-size: 24px;
-            color: gray;
-            letter-spacing: 5px;
-            line-height: 0.2;
-          "
-        >
-          --------------------------------------------------
-        </p> -->
-
         <h3 style="text-decoration: underline">
           Posted By: {{message.poster}} - {{message.created_at|date:"F j, Y"}}
         </h3>
@@ -88,14 +77,16 @@
           Liked by {{ message.user_likes.count }} users
         </h3>
 
-        {% if message.poster.id == request.session.user_id %}
+        {% if message.id and message.poster.id == request.session.user_id %}
         <h3 class="message container">
-          <a href="/delete/{{message.id}}">Delete your message</a>
+          <a href="{% url 'delete_mess_confirm' message.id %}"
+            >Delete Message</a
+          >
         </h3>
         {% endif %}
 
         <br />
-        <h3>Add a Commemt to Post Above</h3>
+        <h3>Add a Comment to Post Above</h3>
 
         <form action="/create_comment" method="POST">
           {% csrf_token %}
@@ -106,17 +97,18 @@
 
         {% for comment in message.post_comments.all %}
         <h3>
-          Comment: {{comment.poster.first_name}} {{comment.poster.last_name}} -
-          {{comment.created_at|date:"F j, Y"}}
+          Comment: {{ comment.poster.first_name }} {{ comment.poster.last_name
+          }} - {{ comment.created_at|date:"F j, Y" }}
         </h3>
         <h3 class="message container indent">{{ comment.content }}</h3>
 
-        {% if comment.poster.id == request.session.user_id %}
+        {% if comment.id and comment.poster.id == request.session.user_id %}
         <h3 class="message container indent">
-          <a href="/comm_delete/{{ comment.id }}">Delete your comment</a>
+          <a href="{% url 'delete_comm_confirm' comment.id %}"
+            >Delete Comment</a
+          >
         </h3>
         {% endif %}
-
         <br />
         {% endfor %}
       </div>
