@@ -86,6 +86,12 @@ input {
   justify-content: flex-start;
 }
 
+.move-left a {
+  margin-left: -243px; /* Adjust value to move further left */
+  color: white !important;
+  /* text-decoration: none; */
+}
+
 /* Title styling */
 .title {
   color: white;
