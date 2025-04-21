@@ -1,0 +1,8 @@
+<h2>{{ post.content }}</h2>
+<p>Posted By: {{ post.poster.first_name }} {{ post.poster.last_name }}</p>
+<p>Likes: {{ likes_count }}</p>
+
+<h3>Comments:</h3>
+{% for comment in comments %}
+<p><strong>{{ comment.poster.first_name }}:</strong> {{ comment.content }}</p>
+{% endfor %}

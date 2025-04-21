@@ -20,23 +20,37 @@
         <h1 class="title">LIVING OFF THE WALL</h1>
 
         {% if user.id %}
-        <h1 class="title-2">Hello {{ user.first_name }}</h1>
-        <h2 class="title-3">
+        <h1 class="title-1">Hello {{ user.first_name }}</h1>
+        <h2 class="title-2">
           <a href="{% url 'user_profile' user.id %}"
             >Read All Posts By {{ user.first_name }}</a
           >
           -
           <a href="/logout">(Logout {{ user.first_name }})</a>
         </h2>
+        <br />
         {% else %}
-        <h2 class="title-3">
-          Welcome, Guest! <a href="/login">Register or Login to interact</a>
-        </h2>
+        <h2 class="title-2 register">Welcome, Guest</h2>
         <br />
         {% endif %}
 
         <!-- <br />
         <hr class="jagged-hr" /> -->
+
+        <!-- <p
+          class="jagged-hr"
+          style="
+            text-align: center;
+            margin: 50px 0px;
+            font-size: 24px;
+            color: black;
+
+            letter-spacing: 5px;
+            line-height: 2;
+          "
+        >
+          ^^^^^^^^^^^^^^^^^^^^^^
+        </p> -->
 
         {% if messages %}
         <ul class="messages">
@@ -69,7 +83,9 @@
           Posted By: {{message.poster}} - {{message.created_at|date:"F j, Y"}}
         </h3>
 
-        {% if user.id %} {% if user in message.user_likes.all %}
+        {% if user.id %}
+        <!-- Space -->
+        {% if user in message.user_likes.all %}
         <form action="{% url 'unlike_message' message.id %}" method="POST">
           {% csrf_token %}
           <button class="button-like" type="submit">Unlike</button>
@@ -81,12 +97,21 @@
           <button class="button-like" type="submit">Like</button>
         </form>
         <br />
-        {% endif %} {% endif %}
+        {% endif %}
+        <!-- Space -->
+        {% endif %}
 
         <h3 class="message container indent">{{ message.content }}</h3>
         <h3 class="message container" style="font-style: italic">
           Liked by {{ message.user_likes.count }} users
         </h3>
+
+        <!-- To see detail if desired - but really unncessary -->
+        <!-- <h3 class="message container indent">
+          <a href="{% url 'blog_details' message.id %}"
+            >See individual details</a
+          >
+        </h3> -->
 
         {% if user.id and message.poster.id == request.session.user_id %}
         <h3 class="message container">
@@ -109,7 +134,9 @@
         <p>
           <a href="/login"><strong>Login to comment.</strong></a>
         </p>
-        {% endif %} {% for comment in message.post_comments.all %}
+        {% endif %}
+        <!-- Space -->
+        {% for comment in message.post_comments.all %}
         <h3>
           Comment: {{comment.poster.first_name}} {{comment.poster.last_name}} -
           {{comment.created_at|date:"F j, Y"}}

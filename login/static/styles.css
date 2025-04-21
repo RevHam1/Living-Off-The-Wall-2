@@ -86,8 +86,12 @@ input {
   justify-content: flex-start;
 }
 
+.register a {
+  color: yellow;
+}
+
 .move-left a {
-  margin-left: -243px; /* Adjust value to move further left */
+  margin-left: -253px; /* Adjust value to move further left */
   color: white !important;
   /* text-decoration: none; */
 }
@@ -97,7 +101,14 @@ input {
   color: white;
   font-size: 50px;
   text-shadow: 2px 2px black;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
+  text-align: center;
+}
+
+.title-1 {
+  color: white;
+  font-size: 50px;
+  text-shadow: 2px 2px black;
   text-align: center;
 }
 

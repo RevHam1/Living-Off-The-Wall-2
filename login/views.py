@@ -15,6 +15,7 @@ def index(request):
 # def index(request):
 #     return redirect("/wall/")
 
+
 ## Register, Login, Logout FUNCTIONALITIES ##
 def register(request):
     if request.method == "POST":
@@ -50,18 +51,13 @@ def login(request):
     return redirect('/')
 
 
-# def wall(request):
-#     if 'user_id' not in request.session:
-#         messages.error(request, "You need to register or login!")
-#         return redirect('/')
+def logout(request):
+    request.session.flush()
+    # request.session.clear()
+    return redirect('/wall')
 
-#     context = {
-#         'user': User.objects.get(id=request.session['user_id']),
-#         'all_messages': Wall_Message.objects.order_by('-created_at'),
-#     }
-#     # ✅ Update template reference
-#     return render(request, "login/wall.html", context)
 
+## Wall CONTEXT ##
 def wall(request):
     context = {
         # ✅ Show posts to everyone
@@ -74,24 +70,29 @@ def wall(request):
 
     return render(request, "login/wall.html", context)
 
-
-def logout(request):
-    request.session.flush()
-    # request.session.clear()
-    return redirect('/wall')
-
-
 # profile post
+
+
 def profile(request, user_id):
     user = User.objects.get(id=user_id)
-    # ✅ Ensure correct path
     return render(request, "login/profile.html", {"user": user})
 
 
-## Wall FUNCTIONALITY ##
+def blog_details(request, post_id):
+    post = get_object_or_404(Wall_Message, id=post_id)
+    # ✅ Retrieves all comments related to the post
+    comments = Comment.objects.filter(wall_message=post)
+    likes_count = post.user_likes.count()  # ✅ Counts the number of likes
+
+    context = {
+        "post": post,
+        "comments": comments,
+        "likes_count": likes_count
+    }
+    return render(request, "login/blog_details.html", context)
+
+
 # CREATE Post, Comment-Integrate the ability to Post a message or comment on someone else’s message
-
-
 @login_required
 def create_mess(request):
     if request.method == "POST":
@@ -115,6 +116,7 @@ def create_comm(request):
     return redirect("/wall")
 
 
+# Like Unlike POST
 @login_required
 def like_message(request, message_id):
     user = User.objects.get(id=request.session["user_id"])
@@ -131,55 +133,7 @@ def unlike_message(request, message_id):
     return redirect("/wall")
 
 
-# def create_mess(request):
-#     if request.method == 'POST':
-#         error = Wall_Message.objects.mess_validator(request.POST)
-#         if error:
-#             messages.error(request, error)
-#             return redirect('/wall')
-#         new_mess = Wall_Message.objects.create(
-#             content=request.POST['content'],
-#             poster=User.objects.get(id=request.session['user_id'])
-#         )
-#         print(new_mess)
-#         return redirect('/wall')
-#     return redirect('/')
-
-
-# def create_comm(request):
-#     if request.method == 'POST':
-#         Comment.objects.create(
-#             content=request.POST['content'],
-#             poster=User.objects.get(id=request.session['user_id']),
-#             wall_message=Wall_Message.objects.get(id=request.POST['message']),
-#         )
-#         return redirect('/wall')
-#     return redirect('/')
-
-
-# def like_message(request, message_id):
-#     if 'user_id' not in request.session:
-#         messages.error(request, "You need to register or login!")
-#         return redirect('/')
-
-#     user = User.objects.get(id=request.session['user_id'])
-#     message = Wall_Message.objects.get(id=message_id)
-#     message.user_likes.add(user)
-#     return redirect('/wall')
-
-
-# def unlike_message(request, message_id):
-#     if 'user_id' not in request.session:
-#         messages.error(request, "You need to register or login!")
-#         return redirect('/')
-
-#     user = User.objects.get(id=request.session['user_id'])
-#     message = Wall_Message.objects.get(id=message_id)
-#     message.user_likes.remove(user)
-#     return redirect('/wall')
-
-
-# DELETE MESSAGE-Implement delete functionality allowing users to delete only their own messages
+# DELETE POST, COMMENT Implementatioin - delete functionality allowing users to delete only their own messages
 def delete_mess(request, mess_id):
     Wall_Message.objects.get(id=mess_id).delete()
     return redirect('/wall')
@@ -190,6 +144,7 @@ def delete_comm(request, comm_id):
     return redirect('/wall')
 
 
+# DELETE POST, COMMENT Confirmation
 def delete_mess_confirm(request, mess_id):
     message = get_object_or_404(Message, id=mess_id)
     if request.method == "POST":
