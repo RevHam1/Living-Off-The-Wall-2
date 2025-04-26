@@ -173,33 +173,71 @@ def unlike_message(request, message_id):
 
 # DELETE POST, COMMENT Implementatioin - delete functionality allowing users to delete only their own messages
 def delete_mess(request, mess_id):
-    Wall_Message.objects.get(id=mess_id).delete()
+    if "user_id" not in request.session:
+        return redirect('/')
+    get_object_or_404(Wall_Message, id=mess_id).delete()
     return redirect('/wall')
 
 
 def delete_comm(request, comm_id):
-    Comment.objects.get(id=comm_id).delete()
+    if "user_id" not in request.session:
+        return redirect('/')
+    get_object_or_404(Comment, id=comm_id).delete()
     return redirect('/wall')
 
 
-# DELETE POST, COMMENT Confirmation
 def delete_mess_confirm(request, mess_id):
-    message = get_object_or_404(Message, id=mess_id)
+    if "user_id" not in request.session:
+        return redirect('/')
+    message = get_object_or_404(Wall_Message, id=mess_id)
     if request.method == "POST":
         message.delete()
-        return redirect("wall")
+        return redirect('/wall')
     return render(request, "login/delete_confirm.html", {
-        "message": message,
-        "user": request.user
+        "message": message
     })
 
 
 def delete_comm_confirm(request, comm_id):
+    if "user_id" not in request.session:
+        return redirect('/')
     comment = get_object_or_404(Comment, id=comm_id)
     if request.method == "POST":
         comment.delete()
-        return redirect("wall")
+        return redirect('/wall')
     return render(request, "login/delete_confirm.html", {
-        "comment": comment,
-        "user": request.user
+        "comment": comment
     })
+
+
+# def delete_mess(request, mess_id):
+#     Wall_Message.objects.get(id=mess_id).delete()
+#     return redirect('/wall')
+
+
+# def delete_comm(request, comm_id):
+#     Comment.objects.get(id=comm_id).delete()
+#     return redirect('/wall')
+
+
+# # DELETE POST, COMMENT Confirmation
+# def delete_mess_confirm(request, mess_id):
+#     message = get_object_or_404(Message, id=mess_id)
+#     if request.method == "POST":
+#         message.delete()
+#         return redirect("wall")
+#     return render(request, "login/delete_confirm.html", {
+#         "message": message,
+#         "user": request.user
+#     })
+
+
+# def delete_comm_confirm(request, comm_id):
+#     comment = get_object_or_404(Comment, id=comm_id)
+#     if request.method == "POST":
+#         comment.delete()
+#         return redirect("wall")
+#     return render(request, "login/delete_confirm.html", {
+#         "comment": comment,
+#         "user": request.user
+#     })

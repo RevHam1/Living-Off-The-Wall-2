@@ -54,7 +54,7 @@ class Wall_Messa_Mang(models.Manager):
 
 
 class Wall_Message(models.Model):
-    content = models.CharField(max_length=255)
+    content = models.TextField()
     poster = models.ForeignKey(
         User, related_name='messages', on_delete=models.CASCADE)
     user_likes = models.ManyToManyField(User, related_name='liked_posts')
