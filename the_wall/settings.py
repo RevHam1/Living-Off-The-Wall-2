@@ -78,6 +78,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'the_wall.wsgi.application'
 
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/wall'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
