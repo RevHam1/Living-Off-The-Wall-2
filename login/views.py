@@ -93,40 +93,78 @@ def blog_details(request, post_id):
 
 
 # CREATE Post, Comment-Integrate the ability to Post a message or comment on someone else’s message
-@login_required
+# @login_required
+# def create_mess(request):
+#     if request.method == "POST":
+#         new_mess = Wall_Message.objects.create(
+#             content=request.POST["content"],
+#             poster=User.objects.get(id=request.session["user_id"])
+#         )
+#         return redirect("/wall")
+#     return redirect("/wall")
 def create_mess(request):
+    if "user_id" not in request.session:
+        return redirect('/')
+
     if request.method == "POST":
-        new_mess = Wall_Message.objects.create(
+        Wall_Message.objects.create(
             content=request.POST["content"],
             poster=User.objects.get(id=request.session["user_id"])
         )
-        return redirect("/wall")
     return redirect("/wall")
 
 
-@login_required
+# @login_required
+# def create_comm(request):
+#     if request.method == "POST":
+#         Comment.objects.create(
+#             content=request.POST["content"],
+#             poster=User.objects.get(id=request.session["user_id"]),
+#             wall_message=Wall_Message.objects.get(id=request.POST["message"]),
+#         )
+#         return redirect("/wall")
+#     return redirect("/wall")
 def create_comm(request):
+    if "user_id" not in request.session:
+        return redirect('/')
+
     if request.method == "POST":
         Comment.objects.create(
             content=request.POST["content"],
             poster=User.objects.get(id=request.session["user_id"]),
             wall_message=Wall_Message.objects.get(id=request.POST["message"]),
         )
-        return redirect("/wall")
     return redirect("/wall")
 
 
 # Like Unlike POST
-@login_required
+# @login_required
+# def like_message(request, message_id):
+#     user = User.objects.get(id=request.session["user_id"])
+#     message = Wall_Message.objects.get(id=message_id)
+#     message.user_likes.add(user)
+#     return redirect("/wall")
+
 def like_message(request, message_id):
+    if "user_id" not in request.session:
+        return redirect('/')
+
     user = User.objects.get(id=request.session["user_id"])
     message = Wall_Message.objects.get(id=message_id)
     message.user_likes.add(user)
     return redirect("/wall")
 
 
-@login_required
+# @login_required
+# def unlike_message(request, message_id):
+#     user = User.objects.get(id=request.session["user_id"])
+#     message = Wall_Message.objects.get(id=message_id)
+#     message.user_likes.remove(user)
+#     return redirect("/wall")
 def unlike_message(request, message_id):
+    if "user_id" not in request.session:
+        return redirect('/')
+
     user = User.objects.get(id=request.session["user_id"])
     message = Wall_Message.objects.get(id=message_id)
     message.user_likes.remove(user)
