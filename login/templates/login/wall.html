@@ -82,7 +82,7 @@
         <hr class="jagged-hr" />
 
         <h3 style="text-decoration: underline">
-          Posted By: {{message.poster}} - {{message.created_at|date:"F j, Y"}}
+          Post By: {{message.poster}} - {{message.created_at|date:"F j, Y"}}
         </h3>
 
         {% if user.id %}
@@ -98,15 +98,16 @@
           {% csrf_token %}
           <button class="button-like" type="submit">Like</button>
         </form>
-        <br />
+
         {% endif %}
         <!-- Space -->
         {% endif %}
 
         <p class="message container indent">{{ message.content }}</p>
-        <h3 class="message container" style="font-style: italic">
+        <h3 class="message container" style="margin-top: 5px">
           Liked by {{ message.user_likes.count }} users
         </h3>
+        <br />
 
         <!-- To see detail if desired - but really unncessary -->
         <!-- <h3 class="message container indent">

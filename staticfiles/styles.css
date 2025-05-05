@@ -1,20 +1,22 @@
-/* Reset default margins and paddings */
+/* ===================================================================
+   Global Reset & Box Sizing
+   =================================================================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box; /* Prevent unwanted spacing issues */
 }
 
-/* Allow scrolling to access content beyond viewport */
+/* ===================================================================
+     Global Styles (html & body)
+     =================================================================== */
 html,
 body {
   width: 100vw;
-  min-height: 100vh; /* Ensure flexibility */
+  min-height: 100vh;
   overflow-y: auto; /* Enables scrolling */
   color: white;
   text-shadow: 2px 2px black;
-
-  /* Background styling */
   background-color: rgb(6, 5, 5);
   background-image: linear-gradient(335deg, #b00 23px, transparent 23px),
     linear-gradient(155deg, #b00 23px, transparent 23px),
@@ -22,67 +24,34 @@ body {
     linear-gradient(155deg, #b00 23px, transparent 23px);
   background-size: 58px 58px;
   background-position: 0px 2px, 4px 35px, 29px 31px, 31px 6px;
-  box-sizing: border-box;
 }
 
-/* Updated container with flexible height */
-
-/* Section for index.html */
+/* ===================================================================
+     Layout Containers
+     =================================================================== */
 #container-2 {
   display: flex; /* Enables side-by-side layout */
-  gap: 10px; /* Adds spacing between sections */
+  gap: 10px; /* Spacing between children */
 }
 
-/* Sections inside the container */
-.section-1 {
-  margin: 20px auto;
-  margin-left: 50px;
-  flex: 1; /* Allows sections to take equal space */
-  max-width: 48%; /* Ensures both fit side by side */
-}
-
-/* Form elements */
-label {
-  width: 100px;
-  color: white;
-  font-size: 1.15rem;
-  margin-left: 50px;
-  text-align: left; /* ✅ Fixed typo */
-}
-
-input {
-  width: 300px;
-  margin: 0; /* Removes unwanted margin */
-  display: inline-block;
-}
-
-/* Sections inside the container */
-.section-1 {
-  flex: 1; /* Allows sections to take equal space */
-  max-width: 48%; /* Ensures both fit side by side */
-}
-
-.button-user {
-  background-color: blue;
-  color: white;
-  padding: 10px; /* ✅ Removed duplicate padding */
-  border-radius: 5px;
-  margin-top: 10px;
-  cursor: pointer; /* Add hover effect */
-  margin-bottom: 20px;
-  border: none;
-  transition: background 0.3s ease;
-}
-
-/* Section for profiles.html, success.html */
 #container {
-  position: relative; /* Allows better responsiveness */
+  position: relative;
   width: 100%;
-  min-height: 100vh; /* Prevents cut-off content */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+}
+
+/* ===================================================================
+     Sections & Typography
+     =================================================================== */
+.section-1 {
+  margin: 20px auto;
+  margin-left: 50px;
+  flex: 1; /* Allows sections to take equal space */
+  max-width: 48%; /* Ensures they fit side by side on larger screens */
 }
 
 p {
@@ -91,60 +60,70 @@ p {
   margin-bottom: -1px;
 }
 
-.yellow-text {
-  color: yellow !important;
-}
-
-.register a {
-  color: yellow;
-}
-
-div .guest {
-  color: yellow;
-}
-
-.move-left a {
-  margin-left: -253px; /* Adjust value to move further left */
-  color: white !important;
-  /* text-decoration: none; */
-}
-
-/* Title styling */
-.title {
-  color: white;
-  font-size: 50px;
-  text-shadow: 2px 2px black;
-  letter-spacing: 4px;
-  text-align: center;
-}
-
+/* Titles */
+.title,
 .title-1 {
   color: white;
   font-size: 50px;
   text-shadow: 2px 2px black;
   text-align: center;
 }
-
+.title {
+  letter-spacing: 4px;
+}
 .title-2 {
   color: white;
-  font-size: 40px;
+  /* font-size: 40px; */
   text-shadow: 2px 2px black;
   letter-spacing: normal;
   text-align: center;
 }
-
 .title-3 {
-  font-size: 30px;
+  font-size: 25px;
   letter-spacing: normal;
   text-align: center;
 }
-
 .title-logout {
   margin-bottom: 40px;
   font-size: 40px;
 }
 
-/* Button improvements */
+/* Color Adjustments */
+.yellow-text {
+  color: yellow !important;
+}
+
+.register a,
+div .guest {
+  color: yellow;
+}
+
+.move-left a {
+  margin-left: -253px; /* Adjust as necessary */
+  color: white !important;
+}
+
+/* ===================================================================
+     Form Elements
+     =================================================================== */
+label {
+  width: 100px;
+  color: white;
+  font-size: 1.15rem;
+  margin-left: 50px;
+  text-align: left;
+}
+
+input {
+  width: 300px;
+  margin: 0; /* Removes unwanted margin */
+  display: inline-block;
+}
+
+/* ===================================================================
+     Button Styles
+     =================================================================== */
+.button-user,
 .button-msg,
 .button-com,
 .button-like {
@@ -157,14 +136,18 @@ div .guest {
   transition: background 0.3s ease;
 }
 
+/* Individual Button Colors */
+.button-user,
 .button-msg {
   background-color: blue;
   color: white;
 }
+
 .button-com {
   background-color: green;
   color: white;
 }
+
 .button-like {
   background-color: yellow;
   color: black;
@@ -179,9 +162,9 @@ div .guest {
   width: 120px;
   font-size: 16px;
   font-weight: bold;
+  margin-top: 16px;
   margin-right: 50px;
   border-radius: 5px;
-  margin-top: 16px;
   cursor: pointer;
 }
 
@@ -190,26 +173,27 @@ div .guest {
   width: 120px;
   font-weight: bold;
   font-size: 16px;
-  text-decoration: none; /* ✅ Ensures links inside are not underlined */
+  text-decoration: none; /* Ensures inner links are not underlined */
   color: black !important;
   padding: 9px;
 }
 
 .button-cancel a {
-  text-decoration: none; /* ✅ Corrected syntax */
-  color: inherit; /* Uses default text color */
+  text-decoration: none; /* Correct link style */
+  color: inherit; /* Inherit default text color */
 }
 
 button:hover {
   background-color: darkblue;
 }
 
-/* Indentation */
+/* ===================================================================
+     Utility Classes & Decorations
+     =================================================================== */
 .indent {
   margin-left: 50px;
 }
 
-/* Jagged horizontal line */
 .jagged-hr {
   border: none;
   height: 10px;
@@ -233,19 +217,100 @@ button:hover {
   color: white;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* ===================================================================
+     Responsive Media Queries
+     =================================================================== */
+
+/* Extra Small Devices (Mobile: max-width: 575.98px) */
+@media (max-width: 575.98px) {
+  #container-2 {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  #container {
+    padding: 10px;
+  }
+  .section-1 {
+    max-width: 100%;
+    margin: 10px auto;
+    margin-left: 10px;
+  }
+  /* Adjust labels and inputs for narrow screens */
+  label,
+  input {
+    margin-left: 10px;
+    width: auto;
+  }
+  button {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* Small Devices (Tablet Portrait: min-width: 576px and max-width: 767.98px) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  #container {
+    padding: 15px;
+  }
+  #container-2 {
+    flex-direction: column;
+    gap: 20px;
+  }
+  #container-2 {
+    display: flex;
+    gap: 10px;
+  }
+  .section-1 {
+    max-width: 90%;
+    margin-left: 20px;
+  }
+}
+
+/* Medium Devices (Tablets Landscape: min-width: 768px and max-width: 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
   #container {
     padding: 20px;
   }
-
-  .section {
-    width: 90%; /* Ensures sections fit smaller screens */
-    text-align: center;
+  #container-2 {
+    flex-direction: column;
+    gap: 20px;
   }
-
+  .section-1 {
+    max-width: 80%;
+  }
   button {
-    width: 100%; /* Improves button responsiveness */
+    width: 100%;
     max-width: 200px;
+  }
+}
+
+/* Large Devices (Small laptops & desktops: min-width: 992px and max-width: 1199.98px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .section-1 {
+    max-width: 48%;
+    margin-left: 50px;
+  }
+  button {
+    width: auto;
+    max-width: 200px;
+  }
+}
+
+/* Extra Large Devices (Larger desktops: min-width: 1200px) */
+@media (min-width: 1200px) {
+  #container {
+    padding: 30px;
+  }
+  /* Increase title sizes for a more commanding design on wide screens */
+  .title,
+  .title-1 {
+    font-size: 60px;
+  }
+  .title-2 {
+    font-size: 50px;
+  }
+  .title-3 {
+    font-size: 40px;
   }
 }
