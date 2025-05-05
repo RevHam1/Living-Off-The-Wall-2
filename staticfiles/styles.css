@@ -73,7 +73,7 @@ p {
 }
 .title-2 {
   color: white;
-  /* font-size: 40px; */
+  font-size: 22px;
   text-shadow: 2px 2px black;
   letter-spacing: normal;
   text-align: center;
@@ -272,10 +272,6 @@ button:hover {
     flex-direction: column;
     gap: 10px;
   }
-  /* #container-2 {
-    display: flex;
-    gap: 10px;
-  } */
   .section-1 {
     max-width: 90%;
     margin-left: 20px;
