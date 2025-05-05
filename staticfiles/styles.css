@@ -231,19 +231,34 @@ button:hover {
   #container {
     padding: 10px;
   }
+
   .section-1 {
     max-width: 100%;
     margin: 10px auto;
     margin-left: 10px;
   }
   /* Adjust labels and inputs for narrow screens */
-  label,
+  /* label,
   input {
     margin-left: 10px;
     width: auto;
+  } */
+
+  /* My labels & input */
+  label {
+    text-align: left;
+    margin-left: 10px;
   }
+
+  input {
+    /* width: 300px; */
+    width: auto;
+    display: inline-block;
+  }
+  /* My labels & input */
+
   button {
-    width: 100%;
+    width: 50%;
     max-width: none;
   }
 }
@@ -255,12 +270,12 @@ button:hover {
   }
   #container-2 {
     flex-direction: column;
-    gap: 20px;
-  }
-  #container-2 {
-    display: flex;
     gap: 10px;
   }
+  /* #container-2 {
+    display: flex;
+    gap: 10px;
+  } */
   .section-1 {
     max-width: 90%;
     margin-left: 20px;
@@ -274,7 +289,7 @@ button:hover {
   }
   #container-2 {
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
   }
   .section-1 {
     max-width: 80%;
